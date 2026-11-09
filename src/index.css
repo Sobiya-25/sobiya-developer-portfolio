@@ -1,0 +1,527 @@
+
+@import "tailwindcss";
+
+/* =========================================
+   GLOBAL STYLES
+========================================= */
+
+:root {
+  font-family: Inter, "Segoe UI", sans-serif;
+  color: #f8fafc;
+  background: #080b17;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+section[id] {
+  scroll-margin-top: 110px;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* =========================================
+   THEME VARIABLES
+========================================= */
+
+.portfolio-theme {
+  --page-bg: #080b17;
+  --surface-bg: #111827;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --nav-bg: rgba(8, 11, 23, 0.92);
+  --text-main: #f8fafc;
+  --text-muted: #cbd5e1;
+  --text-subtle: #94a3b8;
+  --border-color: rgba(255, 255, 255, 0.1);
+
+  background: var(--page-bg);
+  color: var(--text-main);
+  transition: background-color 0.3s ease,
+              color 0.3s ease;
+}
+
+.portfolio-theme.light-mode {
+  --page-bg: #f8fafc;
+  --surface-bg: #ffffff;
+  --card-bg: #ffffff;
+  --nav-bg: rgba(248, 250, 252, 0.94);
+  --text-main: #172033;
+  --text-muted: #475569;
+  --text-subtle: #64748b;
+  --border-color: rgba(100, 116, 139, 0.2);
+}
+
+/* =========================================
+   NAVIGATION BAR
+========================================= */
+
+.portfolio-nav {
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border-color);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: background-color 0.3s ease;
+}
+
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 2px;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #a855f7;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #9333ea, #c084fc);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.25s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: scaleX(1);
+}
+
+/* =========================================
+   LIGHT / DARK MODE BUTTON
+========================================= */
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  border-radius: 14px;
+  background: rgba(168, 85, 247, 0.1);
+  color: #c084fc;
+  transition: transform 0.25s ease,
+              background-color 0.25s ease,
+              border-color 0.25s ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-2px);
+  background: rgba(168, 85, 247, 0.2);
+  border-color: #a855f7;
+}
+
+.theme-toggle:focus-visible,
+.nav-link:focus-visible,
+.download-cv:focus-visible {
+  outline: 3px solid #a855f7;
+  outline-offset: 4px;
+}
+
+/* =========================================
+   DOWNLOAD CV BUTTON
+========================================= */
+
+.download-cv {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 26px;
+  border: 1px solid rgba(192, 132, 252, 0.65);
+  border-radius: 12px;
+  background: linear-gradient(135deg, #7e22ce, #9333ea);
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(126, 34, 206, 0.2);
+  transition: transform 0.3s ease,
+              box-shadow 0.3s ease,
+              background-color 0.3s ease;
+}
+
+.download-cv:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(147, 51, 234, 0.35);
+}
+
+/* =========================================
+   WELCOME INTRO SCREEN
+========================================= */
+
+.intro-screen {
+  background: #080b17;
+  color: #ffffff;
+}
+
+.intro-name {
+  animation: nameReveal 1.2s ease-out both;
+}
+
+.intro-fade {
+  animation: fadeIn 1.5s ease-out both;
+}
+
+.intro-progress {
+  width: 180px;
+  height: 4px;
+  background: #29213f;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.intro-progress-fill {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #9333ea, #c084fc);
+  transform-origin: left;
+  animation: progressLoad 2.8s ease-in-out forwards;
+}
+
+@keyframes nameReveal {
+  from {
+    opacity: 0;
+    transform: translateY(35px) scale(0.95);
+    filter: blur(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes progressLoad {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* =========================================
+   TYPING ANIMATION
+========================================= */
+
+.typing-cursor {
+  display: inline-block;
+  margin-left: 3px;
+  color: #c084fc;
+  animation: interestCursorBlink 0.7s step-end infinite;
+}
+
+@keyframes interestCursorBlink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* =========================================
+   PURPLE NIGHT-SKY HOMEPAGE
+========================================= */
+
+.hero-night {
+  background:
+    radial-gradient(
+      ellipse at 72% 38%,
+      rgba(130, 72, 184, 0.32),
+      transparent 38%
+    ),
+    linear-gradient(
+      180deg,
+      #0c0d24 0%,
+      #231641 56%,
+      #100e27 100%
+    );
+
+  color: #ffffff;
+}
+
+.hero-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.7;
+
+  background-image:
+    radial-gradient(1.5px 1.5px at 8% 16%, white 98%, transparent),
+    radial-gradient(2px 2px at 25% 31%, #ddd6fe 98%, transparent),
+    radial-gradient(1px 1px at 41% 10%, white 98%, transparent),
+    radial-gradient(2px 2px at 63% 22%, #ddd6fe 98%, transparent),
+    radial-gradient(1px 1px at 79% 12%, white 98%, transparent),
+    radial-gradient(2px 2px at 93% 38%, #ddd6fe 98%, transparent),
+    radial-gradient(1px 1px at 17% 60%, white 98%, transparent),
+    radial-gradient(1px 1px at 52% 53%, white 98%, transparent),
+    radial-gradient(2px 2px at 86% 62%, white 98%, transparent);
+
+  background-size: 100% 100%;
+  animation: starPulse 5s ease-in-out infinite alternate;
+}
+
+.hero-moon {
+  position: absolute;
+  right: 17%;
+  top: 12%;
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle at 35% 35%,
+    #ffffff,
+    #e9d5ff 55%,
+    #c4b5fd
+  );
+
+  box-shadow:
+    0 0 30px 12px rgba(216, 180, 254, 0.22),
+    0 0 110px 45px rgba(168, 85, 247, 0.17);
+
+  pointer-events: none;
+}
+
+.hero-haze {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 45%;
+  background: linear-gradient(
+    0deg,
+    rgba(8, 11, 23, 0.65),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.hero-landscape {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 38%;
+  min-height: 210px;
+  pointer-events: none;
+  opacity: 0.94;
+}
+
+.hero-content {
+  animation: heroEnter 0.9s ease-out both;
+}
+
+.hero-float-card {
+  animation: heroFloat 5s ease-in-out infinite;
+}
+
+.hero-float-delay {
+  animation-delay: -1.5s;
+}
+
+.hero-float-delay-2 {
+  animation-delay: -3s;
+}
+
+@keyframes heroEnter {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes starPulse {
+  from {
+    opacity: 0.4;
+  }
+
+  to {
+    opacity: 0.9;
+  }
+}
+
+/* =========================================
+   LIGHT MODE — CONTENT SECTIONS
+========================================= */
+
+.light-mode section:not(.hero-night) {
+  background-color: var(--page-bg);
+  border-color: var(--border-color);
+}
+
+.light-mode section:not(.hero-night) h2,
+.light-mode section:not(.hero-night) h3 {
+  color: #172033;
+}
+
+.light-mode section:not(.hero-night) .text-white,
+.light-mode section:not(.hero-night) .text-slate-100,
+.light-mode section:not(.hero-night) .text-slate-200 {
+  color: #172033;
+}
+
+.light-mode section:not(.hero-night) .text-slate-300 {
+  color: #475569;
+}
+
+.light-mode section:not(.hero-night) .text-slate-400 {
+  color: #64748b;
+}
+
+.light-mode section:not(.hero-night) .bg-white\/5 {
+  background-color: #ffffff;
+}
+
+.light-mode section:not(.hero-night) article {
+  background-color: #ffffff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+}
+
+.light-mode section:not(.hero-night) .border-white\/10 {
+  border-color: rgba(100, 116, 139, 0.2);
+}
+
+/* Keep the developer code window dark in both themes */
+
+.light-mode section:not(.hero-night) pre,
+.light-mode section:not(.hero-night) pre .text-slate-200 {
+  color: #e2e8f0;
+}
+
+.light-mode section:not(.hero-night) pre .text-green-400 {
+  color: #4ade80;
+}
+
+.light-mode section:not(.hero-night) pre .text-orange-400 {
+  color: #fb923c;
+}
+
+.light-mode section:not(.hero-night) pre .text-purple-400 {
+  color: #c084fc;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 768px) {
+  .hero-moon {
+    right: 9%;
+    top: 8%;
+    width: 70px;
+    height: 70px;
+    opacity: 0.7;
+  }
+
+  .hero-landscape {
+    height: 25%;
+    opacity: 0.65;
+  }
+
+  .portfolio-nav {
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .nav-link {
+    font-size: 13px;
+  }
+
+  .download-cv {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .intro-name,
+  .intro-fade,
+  .intro-progress-fill,
+  .typing-cursor,
+  .hero-stars,
+  .hero-content,
+  .hero-float-card {
+    animation: none !important;
+  }
+
+  .nav-link,
+  .theme-toggle,
+  .download-cv {
+    transition: none !important;
+  }
+}
