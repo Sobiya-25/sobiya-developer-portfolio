@@ -515,14 +515,39 @@ function App() {
                 ))}
               </div>
 
-              <a
-                href="https://github.com/Sobiya-25/sobiya-backend-portfolio"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 font-semibold text-purple-400 hover:text-purple-300 transition"
-              >
-                View Public Backend Case Study <span aria-hidden="true">→</span>
-              </a>
+              <div className="flex flex-wrap items-center gap-4">
+                <a
+                  href="https://github.com/Sobiya-25/sobiya-backend-portfolio"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 font-semibold text-purple-400 hover:text-purple-300 transition"
+                >
+                  View Public Backend Case Study <span aria-hidden="true">→</span>
+                </a>
+              </div>
+
+              {/* VERIFICATION DOCUMENTS */}
+              <div className="mt-8 border-t border-white/10 pt-6">
+                <p className="text-purple-300 text-xs tracking-widest mb-4">VERIFICATION DOCUMENTS</p>
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href="/Sobiya_M_Internship_Experience_Letter.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl border border-purple-400/40 bg-purple-500/10 px-5 py-3 text-sm font-semibold text-purple-100 transition hover:-translate-y-0.5 hover:bg-purple-500/20"
+                  >
+                    <span aria-hidden="true">📄</span> Internship Experience Letter
+                  </a>
+                  <a
+                    href="/Sobiya_M_Recommendation_Letter.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl border border-purple-400/40 bg-purple-500/10 px-5 py-3 text-sm font-semibold text-purple-100 transition hover:-translate-y-0.5 hover:bg-purple-500/20"
+                  >
+                    <span aria-hidden="true">✉️</span> Recommendation Letter
+                  </a>
+                </div>
+              </div>
             </article>
             <article className="relative mt-8 rounded-3xl border border-purple-500/25 bg-white/5 p-6 md:p-9">
               <span className="absolute -left-[41px] md:-left-[57px] top-9 h-4 w-4 rounded-full bg-purple-400 ring-4 ring-[#080b17]" />
