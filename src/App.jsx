@@ -6,6 +6,8 @@ const NAV_ITEMS = [
   ['projects', 'Projects'], ['contact', 'Contact'],
 ]
 
+const CONTACT_EMAIL = 'sobiyam25@gmail.com'
+
 const INTERESTS = [
   'Backend Development',
   'Building REST APIs',
@@ -116,6 +118,14 @@ function App() {
         <p className="intro-fade text-xl text-slate-300 mt-8">
           Backend Developer
         </p>
+
+        <button
+          type="button"
+          onClick={() => setShowIntro(false)}
+          className="mt-10 rounded-xl border border-purple-400/40 px-5 py-2 text-sm text-purple-200 transition hover:bg-purple-500/20"
+        >
+          Skip intro →
+        </button>
 
       </main>
     )
@@ -593,14 +603,15 @@ function App() {
       {/* PROJECTS SECTION */}
       <section
         id="projects"
-        className="px-6 md:px-20 py-20 border-t border-white/10"
+        className="px-6 md:px-20 py-24 border-t border-white/10 scroll-mt-24"
       >
+        <div className="max-w-7xl mx-auto">
 
-        <p className="text-purple-400 text-sm tracking-widest mb-3">
+        <p className="text-purple-400 tracking-[0.25em] text-sm mb-4">
           MY WORK
         </p>
 
-        <h2 className="text-3xl md:text-4xl font-bold mb-8">
+        <h2 className="text-4xl md:text-5xl font-bold mb-10">
           Featured <span className="text-purple-400">Projects</span>
         </h2>
 
@@ -703,19 +714,21 @@ function App() {
           </article>
 
         </div>
+        </div>
       </section>
 
       {/* CONTACT SECTION */}
       <section
         id="contact"
-        className="px-6 md:px-20 py-20 border-t border-white/10"
+        className="px-6 md:px-20 py-24 border-t border-white/10 scroll-mt-24"
       >
+        <div className="max-w-7xl mx-auto">
 
-        <p className="text-purple-400 text-sm tracking-widest mb-3">
+        <p className="text-purple-400 tracking-[0.25em] text-sm mb-4">
           LET'S CONNECT
         </p>
 
-        <h2 className="text-3xl md:text-4xl font-bold mb-6">
+        <h2 className="text-4xl md:text-5xl font-bold mb-6">
           Contact <span className="text-purple-400">Me</span>
         </h2>
 
@@ -724,13 +737,26 @@ function App() {
           and collaborating on meaningful software projects.
         </p>
 
+        <p className="text-slate-300 mb-6">
+          Email: <span className="font-semibold text-purple-300 select-all">{CONTACT_EMAIL}</span>
+        </p>
+
         <div className="flex flex-wrap gap-4">
+
+          <a
+            href={`https://mail.google.com/mail/?view=cm&fs=1&to=${CONTACT_EMAIL}&su=${encodeURIComponent('Opportunity for Backend Developer')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-purple-600 hover:bg-purple-500 px-6 py-3 rounded-xl font-semibold transition"
+          >
+            Email Me
+          </a>
 
           <a
             href="https://github.com/Sobiya-25"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-purple-600 hover:bg-purple-500 px-6 py-3 rounded-xl font-semibold transition"
+            className="border border-purple-400 px-6 py-3 rounded-xl font-semibold hover:bg-purple-500/10 transition"
           >
             GitHub
           </a>
@@ -746,6 +772,7 @@ function App() {
 
         </div>
 
+        </div>
       </section>
 
       {/* FOOTER */}
