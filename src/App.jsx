@@ -59,6 +59,7 @@ function App() {
     catch { return 'dark' }
   })
   const [activeSection, setActiveSection] = useState('home')
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     try { localStorage.setItem('sobiya-portfolio-theme', theme) } catch { /* storage may be unavailable */ }
@@ -107,7 +108,7 @@ function App() {
           WELCOME TO MY PORTFOLIO
         </p>
 
-        <h1 className="intro-name text-5xl md:text-7xl font-bold text-center">
+        <h1 className="intro-name text-4xl sm:text-5xl md:text-7xl font-bold text-center">
           MS. <span className="text-purple-400">SOBIYA M</span>
         </h1>
 
@@ -138,19 +139,23 @@ function App() {
     <main className={`portfolio-root min-h-screen overflow-x-hidden ${theme === 'light' ? 'portfolio-light' : 'portfolio-dark'}`}>
 
       {/* NAVIGATION */}
-      <nav className="portfolio-nav sticky top-0 z-50 flex flex-wrap items-center justify-between gap-4 px-6 py-4 md:px-16 border-b backdrop-blur-xl">
+      <nav className="portfolio-nav sticky top-0 z-50 flex flex-wrap items-center justify-between gap-x-4 px-4 py-3 sm:px-6 lg:px-16 border-b backdrop-blur-xl">
         <a href="#home" className="text-2xl font-bold text-purple-400">SM.</a>
-        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
-          <div className="flex flex-wrap items-center gap-1 sm:gap-2" aria-label="Portfolio navigation">
+
+        <div className="flex items-center gap-2 sm:gap-4">
+          {/* Desktop links */}
+          <div className="hidden lg:flex items-center gap-2" aria-label="Portfolio navigation">
             {NAV_ITEMS.map(([id, label]) => (
               <a
                 key={id}
                 href={`#${id}`}
                 aria-current={activeSection === id ? 'location' : undefined}
-                className={`portfolio-nav-link rounded-lg px-2 py-2 text-xs sm:text-sm transition-colors ${activeSection === id ? 'is-active' : ''}`}
+                className={`portfolio-nav-link rounded-lg px-2 py-2 text-sm transition-colors ${activeSection === id ? 'is-active' : ''}`}
               >{label}</a>
             ))}
           </div>
+
+          {/* Theme toggle (mobile + desktop) */}
           <button
             type="button"
             onClick={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')}
@@ -164,8 +169,46 @@ function App() {
               <svg aria-hidden="true" viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M20.5 14.1A8.5 8.5 0 0 1 9.9 3.5 8.5 8.5 0 1 0 20.5 14.1Z"/></svg>
             )}
           </button>
-          <a href="/Sobiya_M_Resume.pdf" download="Sobiya_M_Resume.pdf" className="cv-nav-button rounded-xl px-4 py-2.5 text-xs sm:text-sm font-semibold transition-colors">Download CV ↓</a>
+
+          {/* Desktop CV button */}
+          <a href="/Sobiya_M_Resume.pdf" download="Sobiya_M_Resume.pdf" className="cv-nav-button hidden lg:inline-flex rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors">Download CV ↓</a>
+
+          {/* Mobile menu button */}
+          <button
+            type="button"
+            onClick={() => setMenuOpen((open) => !open)}
+            className="theme-toggle inline-flex h-10 w-10 items-center justify-center rounded-xl border transition-colors lg:hidden"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+          >
+            {menuOpen ? (
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            ) : (
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            )}
+          </button>
         </div>
+
+        {/* Mobile dropdown menu */}
+        {menuOpen && (
+          <div className="mt-3 flex w-full basis-full flex-col gap-1 border-t border-white/10 pt-3 lg:hidden">
+            {NAV_ITEMS.map(([id, label]) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                onClick={() => setMenuOpen(false)}
+                aria-current={activeSection === id ? 'location' : undefined}
+                className={`portfolio-nav-link rounded-lg px-3 py-3 text-base transition-colors ${activeSection === id ? 'is-active' : ''}`}
+              >{label}</a>
+            ))}
+            <a
+              href="/Sobiya_M_Resume.pdf"
+              download="Sobiya_M_Resume.pdf"
+              onClick={() => setMenuOpen(false)}
+              className="cv-nav-button mt-2 rounded-xl px-4 py-3 text-center font-semibold transition-colors"
+            >Download CV ↓</a>
+          </div>
+        )}
       </nav>
 
       {/* ANIMATED PURPLE NIGHT-SKY HOME */}
@@ -196,17 +239,17 @@ function App() {
           </svg>
         </div>
 
-        <div className="relative z-10 mx-auto flex min-h-[90vh] max-w-7xl flex-col justify-center gap-10 py-20 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:pb-44">
+        <div className="relative z-10 mx-auto flex min-h-[90vh] max-w-7xl flex-col justify-center gap-10 pt-12 pb-32 sm:pt-20 sm:pb-40 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:pb-44">
           <div className="hero-content max-w-3xl">
             <p className="mb-5 text-sm font-semibold tracking-[0.3em] text-purple-300">HELLO, I'M</p>
-            <h1 className="mb-5 text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl">
+            <h1 className="mb-5 text-4xl font-extrabold tracking-tight sm:text-6xl md:text-7xl">
               Sobiya <span className="text-purple-300">M</span>
             </h1>
             <h2 className="mb-4 text-2xl font-semibold md:text-4xl">I'm a <span className="text-purple-300">Backend Developer</span></h2>
             <div className="mb-7 min-h-16 text-lg text-slate-200 md:text-2xl" aria-label="My interests">
               I love <ChangingInterests />
             </div>
-            <p className="max-w-2xl text-lg leading-relaxed text-slate-200">
+            <p className="max-w-2xl text-base sm:text-lg leading-relaxed text-slate-200">
               I develop secure and scalable applications using Python, Flask, NestJS, TypeScript, PostgreSQL and Redis. I enjoy building reliable REST APIs and solving real-world backend engineering challenges.
             </p>
             <div className="mt-9 flex flex-wrap gap-4">
@@ -245,7 +288,7 @@ function App() {
 {/* ABOUT SECTION */}
 <section
   id="about"
-  className="relative px-6 md:px-20 py-24 border-t border-white/10"
+  className="relative px-6 md:px-20 py-16 md:py-24 border-t border-white/10 scroll-mt-24"
 >
   <div className="grid lg:grid-cols-2 gap-12 items-center">
 
@@ -255,7 +298,7 @@ function App() {
         GET TO KNOW ME
       </p>
 
-      <h2 className="text-4xl md:text-5xl font-bold mb-8">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8">
         About <span className="text-purple-400">Me</span>
       </h2>
 
@@ -382,7 +425,7 @@ function App() {
 {/* SKILLS SECTION */}
 <section
   id="skills"
-  className="px-6 md:px-20 py-24 border-t border-white/10 scroll-mt-24"
+  className="px-6 md:px-20 py-16 md:py-24 border-t border-white/10 scroll-mt-24"
 >
   <div className="max-w-7xl mx-auto">
 
@@ -390,7 +433,7 @@ function App() {
       WHAT I WORK WITH
     </p>
 
-    <h2 className="text-4xl md:text-5xl font-bold mb-5">
+    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-5">
       Technical <span className="text-purple-400">Skills</span>
     </h2>
 
@@ -465,13 +508,13 @@ function App() {
       {/* EXPERIENCE SECTION */}
       <section
         id="experience"
-        className="relative px-6 md:px-20 py-24 border-t border-white/10 scroll-mt-24"
+        className="relative px-6 md:px-20 py-16 md:py-24 border-t border-white/10 scroll-mt-24"
       >
         <div className="max-w-7xl mx-auto">
           <p className="text-purple-400 tracking-[0.25em] text-sm mb-4">
             MY PROFESSIONAL JOURNEY
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold mb-5">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-5">
             Work <span className="text-purple-400">Experience</span>
           </h2>
           <p className="text-slate-400 max-w-2xl mb-12">
@@ -579,10 +622,10 @@ function App() {
       </section>
 
       {/* EDUCATION AND CERTIFICATIONS */}
-      <section id="education" className="px-6 md:px-20 py-24 border-t border-white/10 scroll-mt-24">
+      <section id="education" className="px-6 md:px-20 py-16 md:py-24 border-t border-white/10 scroll-mt-24">
         <div className="max-w-7xl mx-auto">
           <p className="text-purple-400 tracking-[0.25em] text-sm mb-4">ACADEMIC BACKGROUND</p>
-          <h2 className="text-4xl md:text-5xl font-bold mb-10">Education &amp; <span className="text-purple-400">Certifications</span></h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-10">Education &amp; <span className="text-purple-400">Certifications</span></h2>
           <div className="grid md:grid-cols-2 gap-6">
             <article className="rounded-3xl border border-purple-500/25 bg-white/5 p-7 md:p-9 hover:border-purple-400/60 transition">
               <p className="text-purple-300 text-sm tracking-widest mb-4">EDUCATION · 2024</p>
@@ -603,7 +646,7 @@ function App() {
       {/* PROJECTS SECTION */}
       <section
         id="projects"
-        className="px-6 md:px-20 py-24 border-t border-white/10 scroll-mt-24"
+        className="px-6 md:px-20 py-16 md:py-24 border-t border-white/10 scroll-mt-24"
       >
         <div className="max-w-7xl mx-auto">
 
@@ -611,7 +654,7 @@ function App() {
           MY WORK
         </p>
 
-        <h2 className="text-4xl md:text-5xl font-bold mb-10">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-10">
           Featured <span className="text-purple-400">Projects</span>
         </h2>
 
@@ -720,7 +763,7 @@ function App() {
       {/* CONTACT SECTION */}
       <section
         id="contact"
-        className="px-6 md:px-20 py-24 border-t border-white/10 scroll-mt-24"
+        className="px-6 md:px-20 py-16 md:py-24 border-t border-white/10 scroll-mt-24"
       >
         <div className="max-w-7xl mx-auto">
 
@@ -728,7 +771,7 @@ function App() {
           LET'S CONNECT
         </p>
 
-        <h2 className="text-4xl md:text-5xl font-bold mb-6">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
           Contact <span className="text-purple-400">Me</span>
         </h2>
 
