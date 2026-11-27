@@ -117,7 +117,7 @@ function App() {
         </div>
 
         <p className="intro-fade text-xl text-slate-300 mt-8">
-          Backend Developer
+          full stack developer
         </p>
 
         <button
